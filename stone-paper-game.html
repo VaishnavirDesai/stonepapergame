@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" >
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" ></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <head>
+        <title>Rock, paper, scissors</title>
+        <meta charset="UTF-8" />
+      </head>
+      
+      <body>
+        <h2>Computer Choice: <span id="computer-choice"></span></h2>
+        <h2>Your Choice: <span id="my-choice"></span></h2>
+        <h2>Result: <span id="result"></span></h2>
+
+
+        <div class="container mt-5">
+            <div class="row">
+           
+            <div class="col-md-4"> 
+        <input type="radio" id="stone" name="choice" value="stone">
+        <label for="stone">Stone</label><br>
+        <img src="stone.JPEG" alt="" height="180px"><br>
+    </div>
+
+    <div class="col-md-4">
+        <input type="radio" id="paper" name="choice" value="paper">
+        <label for="paper">Paper</label><br>
+        <img src="paper1.JPEG" alt="" height="150px"><br>
+    </div>
+
+    <div class="col-md-4">
+        <input type="radio" id="scissors" name="choice" value="scissors">
+        <label for="scissors">Scissors</label><br>
+        <img src="scissors.JPEG" alt="" height="180px"><br>
+    </div>
+</div>
+       </div>
+
+     <center> <button id="play" disabled class="mt-5 ">Play</button></center>  
+      </body>
+
+      <script>
+       const compChoice = document.getElementById('computer-choice')
+       const yourChoice = document.getElementById('my-choice')
+       const result = document.getElementById('result')
+       const playButton = document.getElementById('play')
+       const possibleChoices = ['stone', 'paper', 'scissors']
+
+        const choices = document.getElementsByName('choice')
+        choices.forEach((c) => {
+        c.addEventListener('click', () => {
+        playButton.disabled = false
+            })
+        })
+
+        playButton.addEventListener('click', (e) => {
+        const buttonsArray = Array.from(choices)
+       const selected = buttonsArray.filter((b) => b.checked)
+       addTextToSpan(yourChoice, selected[0].id)
+        const randChoice = generateComputerChoice()
+       showResult(selected[0].id, randChoice)
+      })
+
+       function addTextToSpan(spanControl, text) {
+        spanControl.textContent = text
+      }
+
+    function generateComputerChoice() {
+    const randomNumber = Math.floor(Math.random() * possibleChoices.length)
+    const computerChoice = possibleChoices[randomNumber]
+    addTextToSpan(compChoice, possibleChoices[randomNumber])
+    return computerChoice
+    }
+
+    function showResult(myChoice, computerChoice) {
+    if (myChoice === computerChoice) {
+        addTextToSpan(result, 'tied')
+    }
+    else if (myChoice === 'stone') {
+        if (computerChoice === 'paper') {
+            addTextToSpan(result, 'you lost')
+        }
+        else if (computerChoice == 'scissors') {
+            addTextToSpan(result, 'you won')
+        }
+    }
+    else if (myChoice === 'paper') {
+        if (computerChoice === 'scissors') {
+            addTextToSpan(result, 'you lost')
+        }
+        else if (computerChoice == 'stone') {
+            addTextToSpan(result, 'you won')
+        }
+    }
+    else if (myChoice === 'scissors') {
+        if (computerChoice === 'stone') {
+            addTextToSpan(result, 'you lost')
+        }
+        else if (computerChoice == 'paper') {
+            addTextToSpan(result, 'you won')
+        }
+    }
+}
+      </script>
+      
+</body>
+</html>
